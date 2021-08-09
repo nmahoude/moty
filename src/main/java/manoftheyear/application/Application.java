@@ -29,10 +29,10 @@ public class Application {
 
       System.out.println(
           String.format("%20s %3d - %3d %-20s", 
-              match.team1.getName(), 
+              match.team1.name(), 
               result.team1Goals(), 
               result.team2Goals(), 
-              match.team2.getName()));
+              match.team2.name()));
     }
   }
 }

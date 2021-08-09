@@ -5,11 +5,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import manoftheyear.domain.club.Club;
+import manoftheyear.domain.club.PlayerRepository;
 import manoftheyear.domain.club.Team;
+import manoftheyear.infrastructure.players.InMemoryPlayerRepository;
 
 
 public class LeagueRoundTest {
-
+  private PlayerRepository players = new InMemoryPlayerRepository();
   private LeagueRound sut;
 
   @BeforeEach
@@ -19,8 +22,11 @@ public class LeagueRoundTest {
   
   @Test
   public void reverseShouldReverseAllMatches() throws Exception {
-    Team team1 = new Team(null);
-    Team team2 = new Team(null);
+    Club club1 = new Club(players, "club 1");
+    Club club2 = new Club(players, "club 2");
+    
+    Team team1 = club1.mainTeam();
+    Team team2 = club2.mainTeam();
     
     sut.getMatches().add(new Match(team1, team2));
     sut.getMatches().add(new Match(team1, team2));

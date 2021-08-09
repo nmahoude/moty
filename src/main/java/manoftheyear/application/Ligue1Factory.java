@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import manoftheyear.domain.club.Club;
-import manoftheyear.domain.club.Player;
+import manoftheyear.domain.club.PlayerRepository;
 import manoftheyear.domain.league.League;
 import manoftheyear.domain.league.standardSeason.StandardSeasonFactory;
+import manoftheyear.domain.player.PlayerBuilder;
+import manoftheyear.infrastructure.players.InMemoryPlayerRepository;
 
 public class Ligue1Factory {
+  static PlayerRepository playerRepository = new InMemoryPlayerRepository();
 
   public static League buildLigue1() {
-
+	
     List<Club> clubs = createClubs();
     
     League ligue1 = new League(new StandardSeasonFactory(), clubs.size());
     for (Club club  :clubs) {
-      ligue1.register(club.getMainTeam());
+      ligue1.register(club.mainTeam());
     }
     
     return ligue1;
@@ -49,11 +52,10 @@ public class Ligue1Factory {
   }
 
   private static Club createClub(String name, int strength) {
-    Club club = new Club();
-    club.setName(name);
+    Club club = new Club(playerRepository, name);
     
     for (int i=0;i<25;i++) {
-      club.getMainTeam().affectPlayer(new Player(strength));
+      club.affectPlayer(PlayerBuilder.any().withCapacity(strength).build());
     }
     return club;
   }

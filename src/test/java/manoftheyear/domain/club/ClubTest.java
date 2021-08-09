@@ -5,24 +5,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ClubTest {
+import manoftheyear.infrastructure.players.InMemoryPlayerRepository;
 
+public class ClubTest {
+  private PlayerRepository players = new InMemoryPlayerRepository();
   private Club club;
 
   @BeforeEach
   public void setup() {
-    club = new Club();
+    club = new Club(players, "a club");
   }
   
   @Test
   void aClubHasAName() throws Exception {
-    club.setName("theClub");
-    
-    assertThat(club.getName()).isEqualTo("theClub");
+    assertThat(club.name()).isEqualTo("a club");
   }
   
   @Test
   void aClubHasAMainTeam() throws Exception {
-    assertThat(club.getMainTeam()).isInstanceOf(Team.class);
+    assertThat(club.mainTeam()).isInstanceOf(Team.class);
   }
 }

@@ -19,7 +19,7 @@ public class MatchResolver {
     } else if (team2 == null ){
       return new MatchResult(new MatchTeamSheet(team1, TAPISVERT_WIN), new MatchTeamSheet(team2, TAPISVERT_LOSE));
     } else {
-      return new MatchResult(new MatchTeamSheet(team1, team1.getStrength()), new MatchTeamSheet(team2, team2.getStrength()));
+      return new MatchResult(new MatchTeamSheet(team1, team1.club().strength()), new MatchTeamSheet(team2, team2.club().strength()));
     }
   }
 

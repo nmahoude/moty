@@ -24,3 +24,7 @@ hs_err_pid*
 
 # external resources
 extra*
+/target/
+/.settings/
+/.classpath
+/.project
