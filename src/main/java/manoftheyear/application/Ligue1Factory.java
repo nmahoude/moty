@@ -7,6 +7,7 @@ import manoftheyear.domain.club.Club;
 import manoftheyear.domain.club.PlayerRepository;
 import manoftheyear.domain.league.League;
 import manoftheyear.domain.league.standardSeason.StandardSeasonFactory;
+import manoftheyear.domain.player.Player;
 import manoftheyear.domain.player.PlayerBuilder;
 import manoftheyear.infrastructure.players.InMemoryPlayerRepository;
 
@@ -55,7 +56,9 @@ public class Ligue1Factory {
     Club club = new Club(playerRepository, name);
     
     for (int i=0;i<25;i++) {
-      club.affectPlayer(PlayerBuilder.any().withCapacity(strength).build());
+      Player player = PlayerBuilder.any().withCapacity(strength).build();
+      playerRepository.register(player);
+      club.affectPlayer(player);
     }
     return club;
   }

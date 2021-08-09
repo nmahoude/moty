@@ -1,5 +1,6 @@
 package manoftheyear.application;
 
+import java.util.List;
 import java.util.Random;
 
 import manoftheyear.domain.league.League;
@@ -22,8 +23,9 @@ public class Application {
         
     int week = random.nextInt(38);
     System.out.println("Week: " + week);
-    for (int i=0;i<10;i++) {
-      Match match = season.getSchedule().getRound(week).getMatches().get(i);
+    List<Match> matches = season.getSchedule().getRound(week).getMatches();
+    for (int i=0;i<matches.size();i++) {
+      Match match = matches.get(i);
       MatchResolver matchResolver = new MatchResolver(match.team1,match.team2);
       MatchResult result = matchResolver.resolve();
 
