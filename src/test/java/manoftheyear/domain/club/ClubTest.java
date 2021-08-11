@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import manoftheyear.infrastructure.players.InMemoryPlayerRepository;
 
 public class ClubTest {
-  private PlayerRepository players = new InMemoryPlayerRepository();
+  private ClubPlayerRepository players = new InMemoryPlayerRepository();
   private Club club;
 
   @BeforeEach

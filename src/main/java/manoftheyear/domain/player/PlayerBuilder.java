@@ -25,7 +25,10 @@ public class PlayerBuilder {
 		return this;
 	}
 
-	public Player build() {
-		return current;
+	public Player buildInto(PlayerRepository playerRepository) {
+    playerRepository.register(current);
+    Player result = current;
+    current = null; // NOTE : don't reuse the same builder
+		return result;
 	}
 }

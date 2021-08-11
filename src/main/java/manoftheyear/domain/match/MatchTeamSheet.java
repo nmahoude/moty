@@ -1,23 +1,25 @@
 package manoftheyear.domain.match;
 
-import manoftheyear.domain.club.Team;
-
 public class MatchTeamSheet {
 
-  private Team team;
+  private TeamSheet teamsheet;
   private int goals;
 
-  public MatchTeamSheet(Team team, int goals) {
-    this.team = team;
+  public MatchTeamSheet(TeamSheet teamsheet, int goals) {
+    this.teamsheet = teamsheet;
     this.goals = goals;
   }
 
-  public int getGoals() {
+  public int goals() {
     return goals;
   }
 
-  public Team getTeam() {
-    return team;
+  public TeamSheet teamSheet() {
+    return teamsheet;
+  }
+
+  public TeamSheet team() {
+    return teamsheet;
   }
 
 }

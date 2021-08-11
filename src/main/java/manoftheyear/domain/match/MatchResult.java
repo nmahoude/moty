@@ -2,8 +2,6 @@ package manoftheyear.domain.match;
 
 import java.util.Optional;
 
-import manoftheyear.domain.club.Team;
-
 public class MatchResult {
   MatchTeamSheet team1Sheet;
   MatchTeamSheet team2Sheet;
@@ -17,27 +15,27 @@ public class MatchResult {
     this.team2Sheet = team2Sheet;
   }
 
-  public Optional<Team> winner() {
+  public Optional<TeamSheet> winner() {
     return switch(result()) {
-      case WIN_1 -> Optional.of(team1Sheet.getTeam());
-      case WIN_2 -> Optional.of(team2Sheet.getTeam());
+      case WIN_1 -> Optional.of(team1Sheet.team());
+      case WIN_2 -> Optional.of(team2Sheet.team());
       case DRAW -> Optional.empty();
     };
   }
 
   public int team1Goals() {
-    return team1Sheet.getGoals();
+    return team1Sheet.goals();
   }
 
   public int team2Goals() {
-    return team2Sheet.getGoals();
+    return team2Sheet.goals();
   }
 
   public Result result() {
-    if (team1Sheet.getGoals() == team2Sheet.getGoals()) {
+    if (team1Sheet.goals() == team2Sheet.goals()) {
       return Result.DRAW;
     } else {
-      return team1Sheet.getGoals() > team2Sheet.getGoals() ? Result.WIN_1 : Result.WIN_2;
+      return team1Sheet.goals() > team2Sheet.goals() ? Result.WIN_1 : Result.WIN_2;
     }
   }
 

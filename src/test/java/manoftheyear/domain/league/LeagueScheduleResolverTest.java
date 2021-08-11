@@ -51,7 +51,7 @@ public class LeagueScheduleResolverTest {
 
     SeasonSchedule schedule = sut.calculate(teams);
     
-    assertThat(schedule.getRounds()).isEqualTo(6);
+    assertThat(schedule.rounds()).isEqualTo(6);
   }
   
   @Test

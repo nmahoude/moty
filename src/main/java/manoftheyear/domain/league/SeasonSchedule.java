@@ -1,6 +1,7 @@
 package manoftheyear.domain.league;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import manoftheyear.domain.club.Team;
@@ -12,8 +13,8 @@ public class SeasonSchedule {
     this.rounds.addAll(rounds);
   }
 
-  public int getRounds() {
-    return rounds.size();
+  public List<LeagueRound> rounds() {
+    return Collections.unmodifiableList(rounds);
   }
 
   public List<Match> getMatchesBetween(Team team1, Team team2) {

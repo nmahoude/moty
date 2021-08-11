@@ -16,7 +16,7 @@ public class Player {
 	int weight;
 	int capacity; // TODO tmp info to represent player abilities
 
-	public Player(PlayerId id, String name, LocalDate birthDate, City city, int height, int weight, int capacity) {
+	protected Player(PlayerId id, String name, LocalDate birthDate, City city, int height, int weight, int capacity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -27,7 +27,7 @@ public class Player {
 		this.capacity = capacity;
 	}
 	
-	public int capactiy() {
+	public int capacity() {
 		return capacity;
 	}
 

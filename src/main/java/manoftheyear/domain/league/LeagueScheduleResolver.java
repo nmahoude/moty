@@ -8,29 +8,41 @@ import manoftheyear.domain.club.Team;
 public class LeagueScheduleResolver {
 
   public SeasonSchedule calculate(List<Team> originalTeams) {
-    List<Team> teams = new ArrayList<>();
-    teams.addAll(originalTeams);
+    List<Team> teamsA = new ArrayList<>();
+    List<Team> teamsB = new ArrayList<>();
+    for (int i=0;i<originalTeams.size() / 2;i++) {
+      teamsA.add(originalTeams.get(i));
+      teamsB.add(originalTeams.get(i+originalTeams.size() / 2));
+    }
     
     List<LeagueRound> rounds = new ArrayList<>();
     
-    int halfSize = teams.size()/2;
-    Team team2 = teams.get(1);
-    int week = 1;
+    Team initialSecondTeam = teamsB.get(0);
+    int week = 0;
+    boolean switchTeams = false;
     do {
+      week++;
       LeagueRound round = new LeagueRound(week);
-      for (int i=0;i<halfSize;) {
-        Match match = new Match(teams.get(i), teams.get(i+halfSize));
+      for (int i=0;i<teamsA.size();i+=1) {
+        Match match;
+        if (switchTeams) {
+          match = new Match(teamsB.get(i), teamsA.get(i));
+        } else {
+          match = new Match(teamsA.get(i), teamsB.get(i));
+        }
         round.getMatches().add(match);
-        i+=1;
       }
       rounds.add(round);
       
       // round robin shift
-      Team removed = teams.remove(0);
-      Team first = teams.remove(0);
-      teams.add(first);
-      teams.add(0, removed);
-    } while (teams.get(1) != team2);
+      //teamsA.add(teamsA.size(), rotatedA);
+      
+      Team rotatedB = teamsB.remove(0);
+      teamsB.add(teamsB.size(), rotatedB);
+      
+      
+      switchTeams = !switchTeams;
+    } while (teamsB.get(0) != initialSecondTeam);
     
     
     rounds.addAll(reverseRounds(rounds));

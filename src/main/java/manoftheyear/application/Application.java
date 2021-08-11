@@ -4,29 +4,53 @@ import java.util.List;
 import java.util.Random;
 
 import manoftheyear.domain.league.League;
+import manoftheyear.domain.league.LeagueRound;
 import manoftheyear.domain.league.Match;
 import manoftheyear.domain.league.Season;
 import manoftheyear.domain.match.MatchResolver;
 import manoftheyear.domain.match.MatchResult;
+import manoftheyear.domain.match.MatchRule;
+import manoftheyear.domain.match.TeamSheet;
+import manoftheyear.infrastructure.players.InMemoryPlayerRepository;
 
 // small test app
 public class Application {
-
-  private static Random random;
+  public final static Random random = new Random(System.currentTimeMillis());
+  private League ligue1;
+  private Season season;
 
   public static void main(String[] args) {
-    long seed = System.currentTimeMillis();
-    random = new Random(seed);
+    new Application().run();
+  }
 
-    League ligue1 = Ligue1Factory.buildLigue1();
-    Season season = ligue1.createSeason(); 
+  private void run() {
+    InMemoryPlayerRepository playerRepository = new InMemoryPlayerRepository();
+    
+
+    ligue1 = Ligue1Factory.buildLigue1(playerRepository);
+    season = ligue1.createSeason();
         
-    int week = random.nextInt(38);
-    System.out.println("Week: " + week);
-    List<Match> matches = season.getSchedule().getRound(week).getMatches();
+    season.getSchedule().rounds().stream().forEach(r -> {
+      resolveWeek(r); 
+    });
+    
+  }
+
+  private void resolveWeek(LeagueRound round) {
+    System.out.println("Week: " + round.week());
+    List<Match> matches = round.getMatches();
     for (int i=0;i<matches.size();i++) {
       Match match = matches.get(i);
-      MatchResolver matchResolver = new MatchResolver(match.team1,match.team2);
+      
+      // ask clubs for the players
+     TeamSheet ts1 = new TeamSheet(match.team1);
+     ts1.signOnTeamSheet(match.team1.club().prepareTeam(match, match.team1));
+      
+     TeamSheet ts2 = new TeamSheet(match.team2);
+     ts2.signOnTeamSheet(match.team2.club().prepareTeam(match, match.team2));
+     
+     
+      MatchResolver matchResolver = new MatchResolver(random, MatchRule.standard(), ts1, ts2);
       MatchResult result = matchResolver.resolve();
 
       System.out.println(

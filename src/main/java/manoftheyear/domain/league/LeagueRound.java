@@ -24,4 +24,8 @@ public class LeagueRound {
     return leagueRound;
   }
 
+  public int week() {
+    return week;
+  }
+
 }

@@ -6,13 +6,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import manoftheyear.domain.club.Club;
-import manoftheyear.domain.club.PlayerRepository;
+import manoftheyear.domain.club.ClubPlayerRepository;
 import manoftheyear.domain.club.Team;
 import manoftheyear.infrastructure.players.InMemoryPlayerRepository;
 
 
 public class LeagueRoundTest {
-  private PlayerRepository players = new InMemoryPlayerRepository();
+  private ClubPlayerRepository players = new InMemoryPlayerRepository();
   private LeagueRound sut;
 
   @BeforeEach

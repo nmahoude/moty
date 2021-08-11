@@ -3,11 +3,12 @@ package manoftheyear.infrastructure.players;
 import java.util.HashMap;
 import java.util.Map;
 
-import manoftheyear.domain.club.PlayerRepository;
+import manoftheyear.domain.club.ClubPlayerRepository;
 import manoftheyear.domain.player.Player;
 import manoftheyear.domain.player.PlayerId;
+import manoftheyear.domain.player.PlayerRepository;
 
-public class InMemoryPlayerRepository implements PlayerRepository {
+public class InMemoryPlayerRepository implements ClubPlayerRepository, PlayerRepository {
 	Map<PlayerId, Player> players = new HashMap<>();
 	
 	
